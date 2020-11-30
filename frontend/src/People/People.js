@@ -7,8 +7,12 @@ import Pagination from '../Pagination';
 import GET_PEOPLE from './getPeople.graphql';
 import Person from './Person';
 
+const PAGE_SIZE = 10;
+
 function People() {
-  const { data, loading, error } = useQuery(GET_PEOPLE);
+  const { data, loading, error, fetchMore } = useQuery(GET_PEOPLE, {
+    notifyOnNetworkStatusChange: true,
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const { containerProps, indicatorEl } = useLoading({
     loading,
@@ -30,6 +34,11 @@ function People() {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+    fetchMore({
+      variables: {
+        offset: (newPage - 1) * PAGE_SIZE,
+      },
+    })
   }
 
   return (
@@ -47,7 +56,7 @@ function People() {
       <div tw="pt-4 border-gray-300">
         <Pagination
           currentPage={currentPage}
-          itemsOnPage={10}
+          itemsOnPage={PAGE_SIZE}
           onChange={handlePageChange}
           totalItems={data?.people.totalCount ?? 0}
         />

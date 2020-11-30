@@ -11,6 +11,7 @@ function Pagination({ totalItems, itemsOnPage, onChange, currentPage }) {
           <button
             css={[tw`mx-2`, currentPage === pageNumber && tw`font-semibold`]}
             onClick={() => onChange(pageNumber)}
+            key={i+1}
           >
             {pageNumber}
           </button>
