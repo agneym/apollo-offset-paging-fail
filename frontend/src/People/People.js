@@ -43,19 +43,19 @@ function People() {
     });
   };
 
-  console.log('Length of data on Grid', { length: data?.people.nodes.length ?? 0 });
+  console.log('Length of data on Grid', { length: data?.allPeople.nodes.length ?? 0 });
 
   return (
     <section tw="px-8 py-4">
       <header tw="my-10">
         <h2 tw="text-2xl font-bold">People</h2>
         <sub tw="text-sm text-gray-500">
-          {data?.people.totalCount} total results
+          {data?.allPeople.totalCount} total results
         </sub>
       </header>
       <div tw="grid grid-cols-5 gap-4" {...containerProps}>
         {indicatorEl}
-        {data?.people.nodes.map((person) => (
+        {data?.allPeople.nodes.map((person) => (
           <Person key={person.id} data={person} />
         ))}
       </div>
@@ -64,7 +64,7 @@ function People() {
           currentPage={currentPage}
           itemsOnPage={PAGE_SIZE}
           onChange={handlePageChange}
-          totalItems={data?.people.totalCount ?? 0}
+          totalItems={data?.allPeople.totalCount ?? 0}
         />
       </div>
     </section>

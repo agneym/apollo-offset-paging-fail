@@ -1,8 +1,7 @@
 query GetPeople($first: Int, $offset: Int) {
-  people(first: $first, offset: $offset) {
+  allPeople(first: $first, offset: $offset) {
     nodes {
       id
-      index
       firstName
       lastName
       jobTitle
