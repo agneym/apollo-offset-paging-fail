@@ -1,9 +1,9 @@
-import uid from 'uid';
+import { uid } from 'uid';
 import { name } from 'faker';
 
-function generatePeople({ length = 4 }) {
+function generatePeople(length = 4) {
   const data = [];
-  for(i = 0; i < length; i+=1) {
+  for(let i = 0; i < length; i+=1) {
     data.push({
       id: uid(),
       firstName: name.firstName,

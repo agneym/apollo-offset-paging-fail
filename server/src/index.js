@@ -19,7 +19,7 @@ const people = generatePeople();
 
 const resolvers = {
   Query: {
-    books: () => people,
+    people: () => people,
   },
 };
 
