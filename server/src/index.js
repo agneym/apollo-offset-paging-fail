@@ -12,7 +12,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    people: [Person]
+    people(first: Int, offset: Int): [Person]
   }
 `;
 
@@ -20,7 +20,10 @@ const people = generatePeople(40);
 
 const resolvers = {
   Query: {
-    people: () => people,
+    people: (parent, args, context, info) => {
+      const { first = 10, offset = 0 } = args;
+      return people.slice(offset, offset + first);
+    },
   },
 };
 
