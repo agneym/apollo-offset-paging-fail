@@ -1,18 +1,15 @@
-import { uid } from 'uid';
-import { name } from 'faker';
+const { name } = require('faker');
 
 function generatePeople(length = 4) {
   const data = [];
   for(let i = 0; i < length; i+=1) {
     data.push({
-      id: uid(),
-      index: i + 1,
-      firstName: name.firstName,
-      lastName: name.lastName,
-      jobTitle: name.jobTitle,
+      first_name: name.firstName,
+      last_name: name.lastName,
+      job_title: name.jobTitle,
     });
   }
   return data;
 }
 
-export default generatePeople;
+module.exports = generatePeople;

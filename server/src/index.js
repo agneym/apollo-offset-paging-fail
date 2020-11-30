@@ -1,42 +1,18 @@
-import { ApolloServer, gql } from 'apollo-server';
+const express = require("express");
+const { postgraphile } = require("postgraphile");
 
-import generatePeople from './generatePeople';
+const app = express();
 
-const typeDefs = gql`
-  type Person {
-    id: ID!
-    index: Int
-    firstName: String
-    lastName: String
-    jobTitle: String
-  }
+app.use(
+  postgraphile(
+    process.env.DATABASE_URL || "postgres://agney@localhost:5432/pagination-test",
+    "public",
+    {
+      watchPg: true,
+      graphiql: true,
+      enhanceGraphiql: true,
+    }
+  )
+);
 
-  type People {
-    totalCount: Int
-    nodes: [Person]
-  }
-
-  type Query {
-    people(first: Int, offset: Int): People
-  }
-`;
-
-const people = generatePeople(40);
-
-const resolvers = {
-  Query: {
-    people: (parent, args, context, info) => {
-      const { first = 10, offset = 0 } = args;
-      return {
-        totalCount: people.length,
-        nodes: people.slice(offset, offset + first),
-      };
-    },
-  },
-};
-
-const server = new ApolloServer({ typeDefs, resolvers });
-
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
+app.listen(process.env.PORT || 3000);
