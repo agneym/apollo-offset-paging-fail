@@ -2,7 +2,7 @@ query GetPeople($first: Int, $offset: Int) {
   people(first: $first, offset: $offset) {
     nodes {
       id
-      email
+      index
       firstName
       lastName
       jobTitle
