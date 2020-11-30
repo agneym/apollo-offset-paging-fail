@@ -110,11 +110,6 @@ module.exports = function (webpackEnv) {
         options: cssOptions,
       },
       {
-        test: /\.(graphql|gql)$/,
-        exclude: /node_modules/,
-        loader: require.resolve('graphql-tag/loader'),
-      },
-      {
         // Options for PostCSS as we reference these options twice
         // Adds vendor prefixing based on your specified browser support in
         // package.json
@@ -535,6 +530,11 @@ module.exports = function (webpackEnv) {
                 },
                 'sass-loader'
               ),
+            },
+            {
+              test: /\.(graphql|gql)$/,
+              exclude: /node_modules/,
+              loader: require.resolve('graphql-tag/loader'),
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
