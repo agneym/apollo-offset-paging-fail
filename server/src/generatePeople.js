@@ -1,11 +1,12 @@
 import { uid } from 'uid';
-import { name } from 'faker';
+import { name, internet } from 'faker';
 
 function generatePeople(length = 4) {
   const data = [];
   for(let i = 0; i < length; i+=1) {
     data.push({
       id: uid(),
+      email: internet.email,
       firstName: name.firstName,
       lastName: name.lastName,
       jobTitle: name.jobTitle,

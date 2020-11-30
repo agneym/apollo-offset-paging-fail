@@ -1,6 +1,7 @@
 query GetPeople {
   people {
     id
+    email
     firstName
     lastName
     jobTitle

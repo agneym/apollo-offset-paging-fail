@@ -8,6 +8,8 @@
     "test": "node scripts/test.js"
   },
   "dependencies": {
+    "@agney/react-avatar": "^1.1.2",
+    "@agney/react-loading": "^0.1.2",
     "@apollo/client": "^3.2.9",
     "apollo-boost": "^0.4.9",
     "apollo-cache-inmemory": "^1.6.6",

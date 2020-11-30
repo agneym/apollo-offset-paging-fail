@@ -5,6 +5,7 @@ import generatePeople from './generatePeople';
 const typeDefs = gql`
   type Person {
     id: ID!
+    email: String
     firstName: String
     lastName: String
     jobTitle: String
