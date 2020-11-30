@@ -3,9 +3,9 @@ import People from './People';
 
 function App() {
   return (
-    <div>
+    <main>
       <People />
-    </div>
+    </main>
   );
 }
 

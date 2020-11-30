@@ -11,8 +11,13 @@ const typeDefs = gql`
     jobTitle: String
   }
 
+  type People {
+    totalCount: Int
+    nodes: [Person]
+  }
+
   type Query {
-    people(first: Int, offset: Int): [Person]
+    people(first: Int, offset: Int): People
   }
 `;
 
@@ -22,7 +27,10 @@ const resolvers = {
   Query: {
     people: (parent, args, context, info) => {
       const { first = 10, offset = 0 } = args;
-      return people.slice(offset, offset + first);
+      return {
+        totalCount: people.length,
+        nodes: people.slice(offset, offset + first),
+      };
     },
   },
 };

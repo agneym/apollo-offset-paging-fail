@@ -27,10 +27,13 @@ function People() {
 
   return (
     <section tw="px-8 py-4">
-      <h2 tw="text-2xl font-bold my-10">People</h2>
+      <header tw="my-10">
+        <h2 tw="text-2xl font-bold">People</h2>
+        <sub tw="text-sm text-gray-500">{data?.people.totalCount} total results</sub>
+      </header>
       <div tw="grid grid-cols-5 gap-4" {...containerProps}>
         {indicatorEl}
-        {data?.people.map((person) => (
+        {data?.people.nodes.map((person) => (
           <Person key={person.id} data={person} />
         ))}
       </div>
