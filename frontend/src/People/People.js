@@ -43,7 +43,7 @@ function People() {
     });
   };
 
-  console.log({ length: data?.people.nodes.length ?? 0 });
+  console.log('Length of data on Grid', { length: data?.people.nodes.length ?? 0 });
 
   return (
     <section tw="px-8 py-4">
