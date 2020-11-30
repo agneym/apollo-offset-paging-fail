@@ -29,6 +29,8 @@ async function setup() {
         job_title TEXT
       )
     `);
+
+    await client.query(`DELETE FROM public.person`);
   
     const people = generatePeople(40);
   
