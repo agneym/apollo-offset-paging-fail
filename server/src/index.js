@@ -1,7 +1,10 @@
 const express = require("express");
+var cors = require('cors');
 const { postgraphile } = require("postgraphile");
 
 const app = express();
+
+app.use(cors());
 
 app.use(
   postgraphile(
