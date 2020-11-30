@@ -24,7 +24,7 @@ function AddForm({ onSubmit, onClose }) {
       />
       <Input
         placeholder="Engineer"
-        label="Software Engineer"
+        label="Job Title"
         register={register}
         errors={errors}
         name="jobTitle"

@@ -1,5 +1,9 @@
 query GetPeople($first: Int, $offset: Int) {
-  allPeople(first: $first, offset: $offset) {
+  allPeople(
+    first: $first, 
+    offset: $offset,
+    orderBy: [FIRST_NAME_ASC, LAST_NAME_ASC]
+  ) {
     nodes {
       id
       firstName

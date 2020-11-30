@@ -1,10 +1,12 @@
 import "twin.macro";
 import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useLoading, Audio } from "@agney/react-loading";
 
-import Pagination from "../Pagination";
 import GET_PEOPLE from "./getPeople.graphql";
+import CREATE_PERSON from "./createPerson.graphql";
+
+import Pagination from "../Pagination";
 import Header from "./Header";
 import Person from "./Person";
 
@@ -19,6 +21,7 @@ function People() {
       first: PAGE_SIZE,
     },
   });
+  const [createPerson, {data: createData}] = useMutation(CREATE_PERSON);
   const [currentPage, setCurrentPage] = useState(1);
   const { containerProps, indicatorEl } = useLoading({
     loading,
@@ -47,7 +50,15 @@ function People() {
     });
   };
 
-  const handleAdd = (data) => {};
+  const handleAdd = (data) => {
+    createPerson({
+      variables: {
+        input: {
+          person: data,
+        }
+      },
+    });
+  };
 
   return (
     <section tw="px-8 py-4">
