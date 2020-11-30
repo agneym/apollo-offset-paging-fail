@@ -19,6 +19,7 @@
     "react-app-polyfill": "^2.0.0",
     "react-dev-utils": "^11.0.1",
     "react-dom": "^17.0.1",
+    "react-hook-form": "^6.12.1",
     "react-toast-notifications": "^2.4.0",
     "styled-components": "^5.2.1",
     "twin.macro": "^2.0.4",
