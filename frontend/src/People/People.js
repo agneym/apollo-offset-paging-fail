@@ -43,7 +43,7 @@ function People() {
     });
   };
 
-  console.log({ data });
+  console.log({ length: data?.people.nodes.length ?? 0 });
 
   return (
     <section tw="px-8 py-4">

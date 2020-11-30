@@ -7,8 +7,8 @@ const client = new ApolloClient({
       Query: {
         fields: {
           people: {
+            keyArgs: false,
             merge(existing, incoming, { args }) {
-              console.log({ args, existing, incoming })
               const existingNodes = existing?.nodes ?? [];
               const incomingNodes = incoming?.nodes ?? [];
               const mergedNodes = existingNodes.slice(0);
@@ -22,7 +22,7 @@ const client = new ApolloClient({
                 nodes: mergedNodes,
               };
             },
-          }
+          },
         }
       }
     }
