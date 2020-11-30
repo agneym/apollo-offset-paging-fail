@@ -1,12 +1,15 @@
-import { useQuery } from '@apollo/client';
 import 'twin.macro';
+import { useState } from 'react';
+import { useQuery } from '@apollo/client';
 import { useLoading, Audio } from '@agney/react-loading';
 
+import Pagination from '../Pagination';
 import GET_PEOPLE from './getPeople.graphql';
 import Person from './Person';
 
 function People() {
   const { data, loading, error } = useQuery(GET_PEOPLE);
+  const [currentPage, setCurrentPage] = useState(1);
   const { containerProps, indicatorEl } = useLoading({
     loading,
     indicator: (
@@ -25,6 +28,10 @@ function People() {
     )
   }
 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  }
+
   return (
     <section tw="px-8 py-4">
       <header tw="my-10">
@@ -36,6 +43,14 @@ function People() {
         {data?.people.nodes.map((person) => (
           <Person key={person.id} data={person} />
         ))}
+      </div>
+      <div tw="pt-4 border-gray-300">
+        <Pagination
+          currentPage={currentPage}
+          itemsOnPage={10}
+          onChange={handlePageChange}
+          totalItems={data?.people.totalCount ?? 0}
+        />
       </div>
     </section>
   );
