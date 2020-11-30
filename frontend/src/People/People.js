@@ -1,17 +1,19 @@
-import 'twin.macro';
-import { useState } from 'react';
-import { useQuery } from '@apollo/client';
-import { useLoading, Audio } from '@agney/react-loading';
+import "twin.macro";
+import { useState } from "react";
+import { useQuery } from "@apollo/client";
+import { useLoading, Audio } from "@agney/react-loading";
 
-import Pagination from '../Pagination';
-import GET_PEOPLE from './getPeople.graphql';
-import Person from './Person';
+import Pagination from "../Pagination";
+import GET_PEOPLE from "./getPeople.graphql";
+import Person from "./Person";
 
 const PAGE_SIZE = 10;
 
 function People() {
   const { data, loading, error, fetchMore } = useQuery(GET_PEOPLE, {
     notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-first',
   });
   const [currentPage, setCurrentPage] = useState(1);
   const { containerProps, indicatorEl } = useLoading({
@@ -23,13 +25,13 @@ function People() {
     ),
   });
 
-  if(error) {
+  if (error) {
     return (
       <section tw="text-red-600">
         <p>Could not load people. Try again.</p>
         <code>{JSON.stringify(error)}</code>
-      </section> 
-    )
+      </section>
+    );
   }
 
   const handlePageChange = (newPage) => {
@@ -38,14 +40,18 @@ function People() {
       variables: {
         offset: (newPage - 1) * PAGE_SIZE,
       },
-    })
-  }
+    });
+  };
+
+  console.log({ data });
 
   return (
     <section tw="px-8 py-4">
       <header tw="my-10">
         <h2 tw="text-2xl font-bold">People</h2>
-        <sub tw="text-sm text-gray-500">{data?.people.totalCount} total results</sub>
+        <sub tw="text-sm text-gray-500">
+          {data?.people.totalCount} total results
+        </sub>
       </header>
       <div tw="grid grid-cols-5 gap-4" {...containerProps}>
         {indicatorEl}
@@ -66,4 +72,3 @@ function People() {
 }
 
 export default People;
-
