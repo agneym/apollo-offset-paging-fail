@@ -5,6 +5,7 @@ import { useLoading, Audio } from "@agney/react-loading";
 
 import Pagination from "../Pagination";
 import GET_PEOPLE from "./getPeople.graphql";
+import Header from "./Header";
 import Person from "./Person";
 
 const PAGE_SIZE = 10;
@@ -14,6 +15,9 @@ function People() {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first',
+    variables: {
+      first: PAGE_SIZE,
+    }
   });
   const [currentPage, setCurrentPage] = useState(1);
   const { containerProps, indicatorEl } = useLoading({
@@ -43,16 +47,9 @@ function People() {
     });
   };
 
-  console.log('Length of data on Grid', { length: data?.allPeople.nodes.length ?? 0 });
-
   return (
     <section tw="px-8 py-4">
-      <header tw="my-10">
-        <h2 tw="text-2xl font-bold">People</h2>
-        <sub tw="text-sm text-gray-500">
-          {data?.allPeople.totalCount} total results
-        </sub>
-      </header>
+      <Header totalCount={data?.allPeople.totalCount} />
       <div tw="grid grid-cols-5 gap-4" {...containerProps}>
         {indicatorEl}
         {data?.allPeople.nodes.map((person) => (
