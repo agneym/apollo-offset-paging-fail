@@ -2,6 +2,7 @@ import "twin.macro";
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useLoading, Audio } from "@agney/react-loading";
+import { useToasts } from 'react-toast-notifications'
 
 import GET_PEOPLE from "./getPeople.graphql";
 import CREATE_PERSON from "./createPerson.graphql";
@@ -9,10 +10,14 @@ import CREATE_PERSON from "./createPerson.graphql";
 import Pagination from "../Pagination";
 import Header from "./Header";
 import Person from "./Person";
+import { first } from "lodash";
 
 const PAGE_SIZE = 10;
 
 function People() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const { addToast } = useToasts();
+
   const { data, loading, error, fetchMore } = useQuery(GET_PEOPLE, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "cache-and-network",
@@ -21,8 +26,22 @@ function People() {
       first: PAGE_SIZE,
     },
   });
-  const [createPerson, {data: createData}] = useMutation(CREATE_PERSON);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [createPerson, {data: createData}] = useMutation(CREATE_PERSON, {
+    refetchQueries: [{
+      query: GET_PEOPLE,
+      variables: {
+        first: PAGE_SIZE,
+        offset: (currentPage - 1) * PAGE_SIZE,
+      }
+    }],
+    onCompleted: (data) => {
+      const { createPerson: { person: { firstName, lastName }}} = data;
+      addToast(`Added new person - ${firstName} ${lastName}`, {
+        appearance: 'success',
+        autoDismiss: true,
+      });
+    }
+  });
   const { containerProps, indicatorEl } = useLoading({
     loading,
     indicator: (

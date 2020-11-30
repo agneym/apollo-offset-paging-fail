@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { GlobalStyles } from 'twin.macro';
 import { ApolloProvider } from '@apollo/client';
+import { ToastProvider } from 'react-toast-notifications';
 
 import client from './client';
 import App from './App';
@@ -9,10 +10,12 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <GlobalStyles />
-      <App />
-    </ApolloProvider>
+    <ToastProvider>
+      <ApolloProvider client={client}>
+        <GlobalStyles />
+        <App />
+      </ApolloProvider>
+    </ToastProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
