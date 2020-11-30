@@ -1,11 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
+import 'twin.macro';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <header tw="text-purple-500">
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
