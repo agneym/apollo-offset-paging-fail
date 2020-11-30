@@ -13,11 +13,11 @@ const PAGE_SIZE = 10;
 function People() {
   const { data, loading, error, fetchMore } = useQuery(GET_PEOPLE, {
     notifyOnNetworkStatusChange: true,
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'cache-first',
+    fetchPolicy: "cache-and-network",
+    nextFetchPolicy: "cache-first",
     variables: {
       first: PAGE_SIZE,
-    }
+    },
   });
   const [currentPage, setCurrentPage] = useState(1);
   const { containerProps, indicatorEl } = useLoading({
@@ -47,9 +47,11 @@ function People() {
     });
   };
 
+  const handleAdd = (data) => {};
+
   return (
     <section tw="px-8 py-4">
-      <Header totalCount={data?.allPeople.totalCount} />
+      <Header totalCount={data?.allPeople.totalCount} onAdd={handleAdd} />
       <div tw="grid grid-cols-5 gap-4" {...containerProps}>
         {indicatorEl}
         {data?.allPeople.nodes.map((person) => (

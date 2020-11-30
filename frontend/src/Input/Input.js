@@ -10,9 +10,9 @@ import { get } from "lodash";
 function Input({
   id,
   name,
-  errors,
+  errors = {},
   type,
-  as: As,
+  as: As = 'input',
   label,
   required,
   register,
@@ -32,7 +32,7 @@ function Input({
         {label}
       </label>
       <div tw="mt-1 rounded-md shadow-sm">
-        <As
+        <input
           id={inputId}
           type={type}
           name={name}
@@ -40,7 +40,7 @@ function Input({
           ref={register}
           aria-invalid={errorMessage ? "true" : "false"}
           aria-describedby={errorId}
-          tw="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+          tw="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
           {...rest}
         />
       </div>
@@ -52,14 +52,5 @@ function Input({
     </div>
   );
 }
-
-Input.defaultProps = {
-  id: null,
-  errors: {},
-  required: false,
-  register: null,
-  className: null,
-  as: "input",
-};
 
 export default Input;
