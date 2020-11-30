@@ -9,19 +9,7 @@ const client = new ApolloClient({
           people: {
             keyArgs: false,
             merge(existing, incoming, { args }) {
-              const existingNodes = existing?.nodes ?? [];
-              const incomingNodes = incoming?.nodes ?? [];
-              const mergedNodes = existingNodes.slice(0);
-              const start = args?.offset ?? mergedNodes.length;
-              const end = start + incomingNodes.length;
-              for (let i = start; i < end; i += 1) {
-                mergedNodes[i] = incomingNodes[i - start];
-              }
-              console.log('Length of merged nodes', mergedNodes.length);
-              return {
-                ...incoming,
-                nodes: mergedNodes,
-              };
+              return incoming;
             },
           },
         }
