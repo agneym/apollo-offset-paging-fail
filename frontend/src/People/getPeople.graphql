@@ -1,0 +1,8 @@
+query GetPeople {
+  people {
+    id
+    firstName
+    lastName
+    jobTitle
+  }
+}
