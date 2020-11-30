@@ -16,7 +16,7 @@ const typeDefs = gql`
   }
 `;
 
-const people = generatePeople();
+const people = generatePeople(40);
 
 const resolvers = {
   Query: {
