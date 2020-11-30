@@ -7,6 +7,10 @@ const client = new ApolloClient({
       Query: {
         fields: {
           people: {
+            read: (existing, {args}) => {
+              console.log({ args });
+              return existing;
+            },
             keyArgs: false,
             merge(existing, incoming, { args }) {
               const existingNodes = existing?.nodes ?? [];
