@@ -1,7 +1,11 @@
 import "twin.macro";
+import { useState } from 'react';
+
 import Modal from "../Modal";
 
 function Header({ totalCount }) {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <header tw="my-10 flex justify-between">
       <div>
@@ -18,7 +22,15 @@ function Header({ totalCount }) {
             Add Person
           </button>
         }
-      ></Modal>
+        modalTitle='Add Person'
+        showModal={showModal}
+        setShowModal={setShowModal}
+      >
+        <Modal.Body>
+          <p>Modal Contnet</p>
+        </Modal.Body>
+        <Modal.Footer onSave={() => setShowModal(false)} onClose={() => setShowModal(false)} />
+      </Modal>
     </header>
   );
 }
