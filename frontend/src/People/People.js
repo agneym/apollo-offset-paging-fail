@@ -21,7 +21,6 @@ function People() {
   const [getPeople, { data, loading, error, fetchPage }] = usePagination(GET_PEOPLE, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "cache-and-network",
-    nextFetchPolicy: "cache-first",
     variables: {
       first: PAGE_SIZE,
     },

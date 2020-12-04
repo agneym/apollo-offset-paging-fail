@@ -33,9 +33,11 @@ function usePagination(query, options, pageOptions = defaultPageOptions) {
     fetchMore({
       variables: {
         [offsetKey]: (newPage - 1) * perPage,
-      }
-    })
+      },
+    });
   }
+
+  console.log(queryResults?.data?.allPeople.nodes.length)
 
   return [lazyQuery, {
     ...queryResults,
