@@ -1,6 +1,6 @@
 import "twin.macro";
-import { useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useMutation } from "@apollo/client";
 import { useLoading, Audio } from "@agney/react-loading";
 import { useToasts } from 'react-toast-notifications'
 
@@ -10,7 +10,7 @@ import CREATE_PERSON from "./createPerson.graphql";
 import Pagination from "../Pagination";
 import Header from "./Header";
 import Person from "./Person";
-import { first } from "lodash";
+import usePagination from "../Pagination/usePagination";
 
 const PAGE_SIZE = 10;
 
@@ -18,7 +18,7 @@ function People() {
   const [currentPage, setCurrentPage] = useState(1);
   const { addToast } = useToasts();
 
-  const { data, loading, error, fetchMore } = useQuery(GET_PEOPLE, {
+  const [getPeople, { data, loading, error, fetchPage }] = usePagination(GET_PEOPLE, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "cache-and-network",
     nextFetchPolicy: "cache-first",
@@ -26,6 +26,7 @@ function People() {
       first: PAGE_SIZE,
     },
   });
+
   const [createPerson, {data: createData}] = useMutation(CREATE_PERSON, {
     refetchQueries: [{
       query: GET_PEOPLE,
@@ -42,6 +43,11 @@ function People() {
       });
     }
   });
+
+  useEffect(() => {
+    getPeople()
+  }, []);
+
   const { containerProps, indicatorEl } = useLoading({
     loading,
     indicator: (
@@ -62,11 +68,7 @@ function People() {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-    fetchMore({
-      variables: {
-        offset: (newPage - 1) * PAGE_SIZE,
-      },
-    });
+    fetchPage(newPage);
   };
 
   const handleAdd = (data) => {
